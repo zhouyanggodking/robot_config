@@ -9,7 +9,7 @@
         <el-input v-model="loginModel.username" placeholder="请输入用户名"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="loginModel.password" placeholder="请输入密码"></el-input>
+        <el-input v-model="loginModel.password" placeholder="请输入密码" @keyup.enter.native="login"></el-input>
       </el-form-item>
       <el-button type="primary" class="btn login" @click="login">登陆</el-button>
     </el-form>
@@ -38,10 +38,13 @@ export default {
   },
   methods: {
     async login() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
           try {
-            authQuery.login(this.loginModel.username, this.logModel.password);
+            await authQuery.login(this.loginModel.username, this.loginModel.password);
+            this.$router.push({
+              name: 'main-page'
+            });
           } catch {
             this.$message({
               message: '登陆失败， 用户名或密码错误',

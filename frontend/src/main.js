@@ -5,7 +5,7 @@ import axios from 'axios';
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 
-import '@babel/polyfill';
+// import '@babel/polyfill';
 import authService from '@/services/authService';
 import App from './App';
 import router from './router';
