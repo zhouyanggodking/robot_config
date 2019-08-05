@@ -6,7 +6,6 @@ import Vue from 'vue';
 import ElementUI from 'element-ui';
 
 import '@babel/polyfill';
-import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 import authService from '@/services/authService';
 import App from './App';
 import router from './router';
@@ -15,8 +14,8 @@ import './main.scss';
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
-Vue.component(CollapseTransition.name, CollapseTransition);
 Vue.prototype.$message = ElementUI.Message;
+
 // use interceptor to add auth token to every request exception login
 axios.interceptors.request.use(config => {
   if (config.url.indexOf('/api/login') === -1) {
@@ -49,14 +48,6 @@ axios.interceptors.response.use(
 );
 
 window.eventBus = new Vue();
-
-/* eslint-disable no-new */
-// new Vue({
-//   el: '#app',
-//   router,
-//   components: { App },
-//   template: '<App/>'
-// });
 
 new Vue({
   router,

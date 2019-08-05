@@ -6,6 +6,7 @@ import MainPage from '@/views/MainPage';
 import NProgress from 'nprogress';
 
 // const ProjectMonitorPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/ProjectMonitorPage');
+const LoginPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/LoginPage');
 
 Vue.use(Router);
 
@@ -16,6 +17,11 @@ const router = new Router({
       path: '/',
       name: 'main-page',
       component: MainPage      
+    },
+    {
+      path: '/login',
+      name: 'login-page',
+      component: LoginPage    
     }
   ]
 });
