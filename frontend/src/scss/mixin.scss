@@ -1,0 +1,66 @@
+@import 'color.scss';
+
+@mixin linx($color, $hover) {
+  a {  
+    color: $color;      
+    &:link{
+      text-decoration: none;
+      color: $color;
+    }
+    &:visited{
+      color: $color;
+    }
+    &:hover{
+      color: $hover;
+    }
+    &:active{
+      color: $color;
+    }
+  }
+}
+
+@mixin buttonEffect {
+  &:hover {
+    background-color: $hoverColor;
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(6, 94, 114, 0.1);
+  }
+
+  &:active {
+    background-color: $activeColor;
+  }
+}
+
+@mixin cardStyle {
+  margin-top: -0.0625rem;
+  background-color: $cardBackgroundColor;
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(6, 94, 114, 0.1);
+  border: solid 1px #ffffff;
+  border-radius: 0 0.5rem 0.5rem 0.5rem;
+  z-index: 50;
+  &:hover{
+    box-shadow: 0 0.625rem 1.875rem 0 rgba(6, 94, 114, 0.1);
+  }
+}
+
+@mixin blur($radius){
+  -webkit-filter: blur($radius);
+  -moz-filter: blur($radius);
+  -o-filter: blur($radius);
+  -ms-filter: blur($radius);
+  filter: blur($radius);
+}
+
+@mixin elSelectStyle {
+  .el-input {
+    .el-input__inner{
+      border: solid 0.0625rem white;
+      background-color: white;
+    }
+
+    &.is-focus {
+      .el-input__inner{
+        border: solid 0.0625rem $primaryColor;
+      }
+    }
+  }
+}

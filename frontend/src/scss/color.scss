@@ -1,0 +1,44 @@
+/*
+global theme
+*/
+
+$primaryColor: #45a8cc;
+$primaryTextColor: #3f4647;
+$primaryGrayColor: #bfc8cb;
+$primaryBackgroundColor: #eff4f8;
+
+$pageBackgroundColor: #e1ecf1; // used for page level background color
+
+$secondaryBackgroundColor: #eff3f5; // background inside of $primaryBackgroundColor will use this one
+
+$defaultBorderColor: #dce1e3;
+
+// colors
+$redPink: #ee8f8f;
+
+/*search input color*/
+$searchInputPlaceholderColor: #bfc8cb; 
+$searchInputDefaultBorderColor: #dce1e3;
+
+/*table theme*/
+$tableHeaderTextColor: #fefefe;
+$tableHeaderBackgroundColorOdd: #45a8cc;
+$tableHeaderBackgroundColorEven: #5fb8d6;
+$gutterBackgroundColor: #6bb6ca;
+$tableRowDefaultBackgroundColor: #eef4f8;
+$tableCellStripedBackgroundColor: #e6eff3;
+$tableRowHoverBackgroundColor: white;
+$tableBorderColor: #eff3f5;
+
+// $tableHeaderHighlightColor: #a4bdcc;
+$tableColHighlightColor: #ddecf4 ;
+$tableColStrippedHighlightColor: #d6e8ef;
+// btn hover color
+$hoverColor: #5fb8d6;
+$activeColor: #3191bc;
+
+// card style
+$cardBackgroundColor: #f2f5f8;
+
+// text highlight color
+$textHighlightColor: #f27272;
