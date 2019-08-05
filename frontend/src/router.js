@@ -7,6 +7,12 @@ import NProgress from 'nprogress';
 
 // const ProjectMonitorPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/ProjectMonitorPage');
 const LoginPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/LoginPage');
+const BraceletPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/BraceletPage');
+const PageTemplate = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/PageTemplate');
+const ServerPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/ServerPage');
+const SettingsPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/SettingsPage');
+const TestPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/TestPage');
+const WifiPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/WifiPage');
 
 Vue.use(Router);
 
@@ -16,7 +22,44 @@ const router = new Router({
     {
       path: '/',
       name: 'main-page',
-      component: MainPage      
+      component: MainPage,
+      meta: {
+        requiresAuth: true
+      }      
+    },
+    {
+      path: '',
+      component: PageTemplate,
+      meta: {
+        requiresAuth: true
+      },
+      children: [
+        {
+          path: 'bracelet',
+          name: 'bracelet-page',
+          component: BraceletPage
+        },
+        {
+          path: 'server',
+          name: 'server-page',
+          component: ServerPage
+        },
+        {
+          path: 'settings',
+          name: 'settings-page',
+          component: SettingsPage
+        },
+        {
+          path: 'test',
+          name: 'test-page',
+          component: TestPage
+        },
+        {
+          path: 'wifi',
+          name: 'wifi-page',
+          component: WifiPage
+        }
+      ]
     },
     {
       path: '/login',
