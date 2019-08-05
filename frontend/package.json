@@ -13,6 +13,7 @@
     "element-ui": "^2.10.1",
     "nprogress": "^0.2.0",
     "vue": "^2.5.17",
+    "vue-eva-icons": "^1.1.1",
     "vue-router": "^3.0.1",
     "vue-scrollto": "^2.13.0"
   },

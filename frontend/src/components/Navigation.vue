@@ -23,7 +23,7 @@ export default {
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 0 64px;
+  padding: 0 24px;
   .link {
     align-items: center;
   }

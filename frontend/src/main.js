@@ -4,6 +4,7 @@
 import axios from 'axios';
 import Vue from 'vue';
 import ElementUI from 'element-ui';
+import EvaIcons from 'vue-eva-icons';
 
 // import '@babel/polyfill';
 import authService from '@/services/authService';
@@ -12,6 +13,7 @@ import router from './router';
 import './main.scss';
 
 Vue.use(ElementUI);
+Vue.use(EvaIcons);
 
 Vue.config.productionTip = false;
 Vue.prototype.$message = ElementUI.Message;

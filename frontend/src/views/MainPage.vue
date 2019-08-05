@@ -1,13 +1,79 @@
 <template>
   <div class="main-page">
     <navigation class="top-bar"></navigation>
+    <main class="main">
+      <div class="row device-info">
+        <span>设备序列号： {{seriesNumber}}</span>
+        <el-button type="danger" icon="el-icon-refresh-left">系统重启</el-button>
+      </div>
+      <div class="row sections">
+        <div class="section" v-for="(section, index) in sections" :key="index">
+          <div class="row title-container">
+            <eva-icon :name="section.icon" fill="#00e"></eva-icon>
+            <router-link class="title link" :to="{name: section.routeName}">{{section.title}}</router-link>
+          </div>          
+          <div class="desc">
+            {{section.desc}}
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
 </template>
 
 <script>
 import Navigation from '@/components/Navigation';
+import deviceQuery from '@/rest/deviceQuery';
 
 export default {
+  data() {
+    return {
+      seriesNumber: '',
+      sections: [
+        {
+          title: '系统服务器',
+          desc: '配置、查看和修改服务器地址……',
+          icon: 'grid',
+          routeName: 'server'
+        },
+        {
+          title: '无线网络',
+          desc: '扫描、查看和修改无线网络连接……',
+          icon: 'wifi',
+          routeName: 'wireless'
+        },
+        {
+          title: '蓝牙手环',
+          desc: '扫描、连接和管理蓝牙手环……',
+          icon: 'bluetooth',
+          routeName: 'bracelet'
+        },
+        {
+          title: '其它设置',
+          desc: '设置摄像头分辨率、位置坐标……',
+          icon: 'settings-2',
+          routeName: 'other-settings'
+        },
+        {
+          title: '功能测试',
+          desc: '测试扬声器、麦克风、液晶屏、摄像头和按键……',
+          icon: 'smartphone',
+          routeName: 'other-settings'
+        }
+      ]
+    };
+  },
+  async created() {
+    try {
+      const deviceInfo = await deviceQuery.getDeviceInfo();
+      this.seriesNumber = deviceInfo.seriesNumber;
+    } catch {
+      this.$message({
+        message: '获取设备序列号失败',
+        type: 'error'
+      });
+    }
+  },
   components: {
     Navigation
   }
@@ -16,9 +82,57 @@ export default {
 
 <style lang="scss" scoped>
 .main-page {
+  width: 100%;
+  height: 100%;
   .top-bar {
     width: 100%;
     height: 64px;
+  }
+  .main {
+    overflow: auto;
+    width: 100%;
+    height: calc(100% - 64px);
+    padding: 24px;
+    margin:0 auto;
+    .device-info {
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top:48px;
+      margin-left: 24px;
+      font-size: 28px;
+      font-weight: bold;
+      .sn {
+        margin-right:48px;
+      }
+    }
+    .sections {
+      flex-wrap: wrap;  
+      margin-top: 48px;    
+      .section {
+        width: 300px;
+        padding: 24px;
+        border-radius: 4px;
+        .title-container {
+          font-size: 18px;
+          color: #00e;
+          .title {
+            margin-left: 12px;
+          }
+          .link {
+            color: #00e;
+            text-decoration: none;
+          }
+        }
+        .desc {
+          margin-top: 14px;
+          font-size: 14px;
+          height: 60px;
+          color: #666;
+          line-height: 20px;
+        }
+      }
+      
+    }
   }
 }
 </style>

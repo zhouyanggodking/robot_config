@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from data_access import device
 
 app = Flask(__name__)
 
@@ -23,6 +24,13 @@ def login():
         }
         return jsonify(res)
     return 'Not Authorized', 401
+
+
+@app.route('/api/device')
+def getDeviceInfo():
+    deviceInfo = device.getDeviceInfo()
+    return jsonify(deviceInfo)
+
 
 
 if __name__ == '__main__':
