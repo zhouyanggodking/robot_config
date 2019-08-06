@@ -1,5 +1,5 @@
-def getDeviceInfo():
-    deviceInfo = {
+def get_device_info():
+    device_info = {
         'seriesNumber': 'b827eb319c88'
     }
-    return deviceInfo
+    return device_info

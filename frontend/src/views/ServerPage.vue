@@ -9,7 +9,10 @@
       <span class="address">{{serverAddress || '空'}}</span>    
       <el-button type="primary" class="el-icon-edit" @click="onEdit">修改</el-button>
     </div>
-    <el-dialog title="修改服务器地址" :visible.sync="dialogConfig.show" :close-on-click-modal="false" width="80%">
+    <el-dialog title="修改服务器地址" 
+      :visible.sync="dialogConfig.show" 
+      :close-on-click-modal="false" width="80%"
+      @closed="onDialogClose">
       <el-form :model="dialogConfig" :rules="dialogRules" ref="dialog">
         <el-form-item label="服务器地址" prop="address">
           <el-input v-model="dialogConfig.address" placeholder="请输入服务器地址"></el-input>
@@ -34,7 +37,7 @@ export default {
   data() {
     return {
       serverInfo: {
-        address: 'http://ttyoa.com',
+        address: '',
         port: ''
       },
       dialogConfig: {
@@ -49,6 +52,8 @@ export default {
             validator: (rule, value, callback) => {
               if (!/^http(s?):\/\//.test(value)) {
                 callback(new Error('请输入正确的服务器地址, 应以http(s)://开头'));
+              } else {
+                callback();
               }
             }, 
             trigger: 'blur'
@@ -62,7 +67,7 @@ export default {
     };
   },
   methods: {
-    onConfirmBtnClick() {
+    async onConfirmBtnClick() {
       this.$refs.dialog.validate(async valid => {
         if (valid) {
           try {
@@ -82,7 +87,12 @@ export default {
     onCancelBtnClick() {
       this.dialogConfig.show = false;
     },
+    onDialogClose() {
+      this.$refs.dialog.resetFields();
+    },
     onEdit() {
+      this.dialogConfig.address = this.serverInfo.address;
+      this.dialogConfig.port = this.serverInfo.port;
       this.dialogConfig.show = true;
     }
   },

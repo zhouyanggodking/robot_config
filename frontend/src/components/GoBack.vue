@@ -15,7 +15,7 @@ export default {
   methods: {
     goBack() {
       this.$router.push({
-        name: routeName
+        name: this.routeName
       });
     }
   }
