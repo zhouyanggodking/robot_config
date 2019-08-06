@@ -118,6 +118,10 @@ export default {
             this.isUpdating = false;
             this.dialogConfig.show = false;
             this.fetchConfiguredBraceletList();
+            this.$message({
+              message: `${this.dialogConfig.mode === 'NEW' ? '添加' : '更新'}添加手环配置成功`,
+              type: 'success'
+            });
           } catch {
             this.isUpdating = false;
             this.$message({

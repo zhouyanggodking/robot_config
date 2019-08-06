@@ -125,6 +125,9 @@ export default {
           .link {
             color: #00e;
             text-decoration: none;
+            &:hover {
+              color: #0055ff;
+            }
           }
         }
         .desc {

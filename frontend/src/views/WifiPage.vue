@@ -100,6 +100,10 @@ export default {
             this.dialogConfig.show = false;
             this.wifiInfo.name = this.operatingWifiName;
             this.wifiInfo.password = this.dialogConfig.password;
+            this.$message({
+              message: '更新网络配置成功',
+              type: 'success'
+            });
           } catch {
             this.$message({
               message: '更新网络配置失败',
@@ -126,6 +130,10 @@ export default {
           this.isUpdating = false;
           this.wifiInfo.name = wifiName;
           this.wifiInfo.password = '';
+          this.$message({
+            message: '更新网络配置成功',
+            type: 'success'
+          });
         } catch {
           this.isUpdating = false;
           this.$message({

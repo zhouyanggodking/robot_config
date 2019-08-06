@@ -73,6 +73,10 @@ export default {
             this.dialogConfig.show = false;
             this.serverInfo.address = this.dialogConfig.address;
             this.serverInfo.port = this.dialogConfig.port;
+            this.$message({
+              message: '修改服务器成功',
+              type: 'success'
+            });
           } catch {
             this.$message({
               message: '修改服务器失败',

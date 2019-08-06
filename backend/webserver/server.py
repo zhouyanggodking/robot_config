@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from data_access import device, server, wifi, bracelet
+from data_access import device, server, wifi, bracelet, settings
 
 app = Flask(__name__)
 
@@ -120,6 +120,22 @@ def delete_bracelet(bracelet_id):
 def get_scanned_bracelet_list():
     bracelet_list = bracelet.get_scanned_bracelet_list()
     return jsonify(bracelet_list)
+
+
+@app.route('/api/settings')
+def get_settings():
+    s = settings.get_settings()
+    return jsonify(s)
+
+
+@app.route('/api/settings', methods=['put'])
+def update_settings():
+    s = request.json
+    status, msg = settings.update_settings(s)
+    if status:
+        return msg, 200
+    else:
+        return msg, 400
 
 
 if __name__ == '__main__':
