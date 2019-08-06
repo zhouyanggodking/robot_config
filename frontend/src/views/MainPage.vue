@@ -46,19 +46,19 @@ export default {
           title: '蓝牙手环',
           desc: '扫描、连接和管理蓝牙手环……',
           icon: 'bluetooth',
-          routeName: 'bracelet'
+          routeName: 'bracelet-page'
         },
         {
           title: '其它设置',
           desc: '设置摄像头分辨率、位置坐标……',
           icon: 'settings-2',
-          routeName: 'settings'
+          routeName: 'settings-page'
         },
         {
           title: '功能测试',
           desc: '测试扬声器、麦克风、液晶屏、摄像头和按键……',
           icon: 'smartphone',
-          routeName: 'test'
+          routeName: 'test-page'
         }
       ]
     };

@@ -24,6 +24,7 @@ export default {
 
 <style lang="scss" scoped>
 .go-back {
+  height: 24px;
   color: #0000ee;
   cursor: pointer;
   &:hover {

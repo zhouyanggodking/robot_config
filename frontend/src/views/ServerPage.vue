@@ -1,6 +1,5 @@
 <template>
   <div class="server-page">
-    <go-back class="back"></go-back>
     <h1>系统服务器</h1>
     <div class="server-info">
       <div>
@@ -30,7 +29,6 @@
 </template>
 
 <script>
-import GoBack from '@/components/GoBack';
 import serverQuery from '@/rest/serverQuery';
 
 export default {
@@ -113,9 +111,6 @@ export default {
       }
       return this.serverInfo.address;
     }
-  },
-  components: {
-    GoBack
   }
 };
 </script>
