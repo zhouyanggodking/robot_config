@@ -9,7 +9,17 @@ bracelet_list = [
     }
 ]
 
-scanned_bracelet_list = ['5CEA1D8CAAE4', 'EEEE1D8CAAE4', '5CEA1D8CEEEE']
+scanned_bracelet_list = [
+    {
+        'mac': '5CEA1D8CAAE4'
+    },
+    {
+        'mac': 'EEEE1D8CAAE4'
+    },
+    {
+        'mac': '5CEA1D8CEEEE'
+    }
+]
 
 
 def get_configured_bracelet_list():

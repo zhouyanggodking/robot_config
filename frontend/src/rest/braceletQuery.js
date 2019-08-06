@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default class BraceletQuery {
   static getConfiguredBraceletList() {
-    return axios.get('/api/bracelet_list').then(res => res.data);
+    return axios.get('/api/bracelet_list').then(res => res.data || []);
   }
 
   static getBraceletInfo(id) {
