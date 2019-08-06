@@ -26,6 +26,7 @@ export default {
   .page {
     width: 100%;
     height: calc(100% - 64px);
+    padding: 24px;
   }
 }
 </style>
