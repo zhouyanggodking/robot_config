@@ -39,6 +39,20 @@ html, body{
   }
 }
 
+.eva-hover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.el-dialog {
+  max-width: 500px;
+}
+.el-message-box {
+  width: 80% !important;
+  max-width: 420px;
+}
+
 /* width */
 // ::-webkit-scrollbar {
 //     width: 0.625rem;

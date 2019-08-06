@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from data_access import device, server, wifi
+from data_access import device, server, wifi, bracelet
 
 app = Flask(__name__)
 
@@ -69,6 +69,57 @@ def update_wifi_info():
         return msg, 200
     else:
         return msg, 400
+
+
+@app.route('/api/bracelet_list')
+def get_configured_bracelet_list():
+    bracelet_list = bracelet.get_configured_bracelet_list()
+    return jsonify(bracelet_list)
+
+
+@app.route('/api/bracelet/<int:bracelet_id>')
+def get_bracelet_info(bracelet_id):
+    bracelet_info = bracelet.get_bracelet_info(bracelet_id)
+    return jsonify(bracelet_info)
+
+
+@app.route('/api/bracelet/<int:bracelet_id>', methods=['put'])
+def update_bracelet_info(bracelet_id):
+    bracelet_info = request.json
+    if not('mac' in bracelet_info):
+        return 'mac field is missing', 400
+    status, msg = bracelet.update_bracelet_info(bracelet_id, bracelet_info['mac'])
+    if status:
+        return 'updated', 200
+    else:
+        return msg, 404  # TODO: more error message
+
+
+@app.route('/api/bracelet', methods=['post'])
+def add_bracelet():
+    bracelet_info = request.json
+    if not ('mac' in bracelet_info):
+        return 'mac field is missing', 400
+    status, msg = bracelet.add_bracelet(bracelet_info['mac'])
+    if status:
+        return msg, 200
+    else:
+        return 'add bracelet failed', 400
+
+
+@app.route('/api/bracelet/<int:bracelet_id>', methods=['delete'])
+def delete_bracelet(bracelet_id):
+    status, msg = bracelet.delete_bracelet(bracelet_id)
+    if status:
+        return msg, 200
+    else:
+        return msg, 404
+
+
+@app.route('/api/scan_bracelet_list')
+def get_scanned_bracelet_list():
+    bracelet_list = bracelet.get_scanned_bracelet_list()
+    return jsonify(bracelet_list)
 
 
 if __name__ == '__main__':
