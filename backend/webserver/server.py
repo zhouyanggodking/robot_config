@@ -50,6 +50,7 @@ def get_server_info():
 @app.route('/api/server', methods=['post'])
 def update_server_info():
     server_info = request.json
+    print(server_info)
     success, msg = server.update_server_info(server_info)
     if success:
         return msg, 200
