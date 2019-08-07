@@ -1,5 +1,5 @@
 <template>
-  <div class="radio-page">
+  <div class="audio-page">
     <h1>测试麦克风</h1>
     <div class="operations">
       <el-button type="primary" @click="onTestBtnClick" icon="el-icon-microphone">录制</el-button>
@@ -61,7 +61,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.radio-page {
+.audio-page {
   .operations {
     margin-top: 48px;
   }
