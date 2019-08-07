@@ -39,6 +39,6 @@ export default class TestQuery {
 
   // keypad
   static getKeypadPressedKeys() {
-    return axios.post('/api/keypad').then(res => res.data || []);
+    return axios.get('/api/keypad').then(res => res.data || []);
   }
 }

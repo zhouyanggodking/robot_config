@@ -8,7 +8,6 @@
       <el-image fit="contain" class="image" :src="`data:image/jpg;base64, ${imageData}`">
       </el-image>
     </div>
-
   </div>
 </template>
 

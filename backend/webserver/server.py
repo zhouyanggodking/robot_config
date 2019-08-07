@@ -215,7 +215,7 @@ def capture_camera():
 def get_keypad_strings():
     status, arr = test_func.get_keypad_strings()
     if status:
-        return arr, 200
+        return jsonify(arr), 200
     else:
         return 'failed', 400
 
