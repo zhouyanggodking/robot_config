@@ -1,13 +1,21 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from data_access import device, server, wifi, bracelet, settings, test_func
+import os
 
-app = Flask(__name__)
+basedir = os.path.dirname(os.path.abspath(__file__))
+print(basedir)
+app = Flask(__name__,static_url_path='', static_folder=os.path.join(basedir, 'static'), template_folder=os.path.join(basedir, 'static'))
 
 builtinUser = {
     'username': 'admin',
     'password': 'onlyforrobot',
     'token': 'sdljflsadjfk==lasjdklfjaskldfjlkasjdlfjskldjflpf[mvlsdv--=s-df='
 }
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 @app.route('/api/login', methods=['post'])
