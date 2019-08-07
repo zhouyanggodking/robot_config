@@ -14,6 +14,12 @@ const SettingsPage = () => import(/* webpackPrefetch: true, webpackChunkName: "p
 const TestPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/TestPage');
 const WifiPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/WifiPage');
 
+const AudioPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/testpages/AudioPage');
+const CameraPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/testpages/CameraPage');
+const KeypadPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/testpages/KeypadPage');
+const MonitorPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/testpages/MonitorPage');
+const RadioPage = () => import(/* webpackPrefetch: true, webpackChunkName: "pages" */ '@/views/testpages/RadioPage');
+
 Vue.use(Router);
 
 const router = new Router({
@@ -50,14 +56,39 @@ const router = new Router({
           component: SettingsPage
         },
         {
+          path: 'wifi',
+          name: 'wifi-page',
+          component: WifiPage
+        },
+        {
           path: 'test',
           name: 'test-page',
           component: TestPage
         },
         {
-          path: 'wifi',
-          name: 'wifi-page',
-          component: WifiPage
+          path: 'test/audio',
+          name: 'audio-page',
+          component: AudioPage
+        },
+        {
+          path: 'test/camera',
+          name: 'camera-page',
+          component: CameraPage
+        },
+        {
+          path: 'test/keypad',
+          name: 'keypad-page',
+          component: KeypadPage
+        },
+        {
+          path: 'test/monitor',
+          name: 'monitor-page',
+          component: MonitorPage
+        },
+        {
+          path: 'test/radio',
+          name: 'radio-page',
+          component: RadioPage
         }
       ]
     },

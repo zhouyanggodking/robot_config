@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from data_access import device, server, wifi, bracelet, settings
+from data_access import device, server, wifi, bracelet, settings, test_func
 
 app = Flask(__name__)
 
@@ -136,6 +136,88 @@ def update_settings():
         return msg, 200
     else:
         return msg, 400
+
+
+# test functionalities
+@app.route('/api/start_test_radio', methods=['post'])
+def start_test_radio():
+    status, msg = test_func.start_test_radio()
+    if status:
+        return msg, 200
+    else:
+        return msg, 400
+
+
+@app.route('/api/stop_test_radio', methods=['post'])
+def stop_test_radio():
+    status, msg = test_func.stop_test_radio()
+    if status:
+        return msg, 200
+    else:
+        return msg, 400
+
+
+@app.route('/api/start_recording_audio', methods=['post'])
+def start_recording_audio():
+    status, msg = test_func.start_recording_audio()
+    if status:
+        return msg, 200
+    else:
+        return msg, 400
+
+
+@app.route('/api/stop_recording_audio', methods=['post'])
+def stop_recording_audio():
+    status, msg = test_func.stop_recording_audio()
+    if status:
+        return msg, 200
+    else:
+        return msg, 400
+
+
+@app.route('/api/play_recorded_audio', methods=['post'])
+def play_recorded_audio():
+    status, msg = test_func.play_recorded_audio()
+    if status:
+        return msg, 200
+    else:
+        return msg, 400
+
+
+@app.route('/api/start_test_monitor', methods=['post'])
+def start_test_monitor():
+    status, msg = test_func.start_test_monitor()
+    if status:
+        return msg, 200
+    else:
+        return msg, 400
+
+
+@app.route('/api/stop_test_monitor', methods=['post'])
+def stop_test_monitor():
+    status, msg = test_func.stop_test_monitor()
+    if status:
+        return msg, 200
+    else:
+        return msg, 400
+
+
+@app.route('/api/capture_camera', methods=['post'])
+def capture_camera():
+    status, image_data = test_func.capture_camera()
+    if status:
+        return image_data, 200
+    else:
+        return 'failed', 400
+
+
+@app.route('/api/keypad')
+def get_keypad_strings():
+    status, arr = test_func.get_keypad_strings()
+    if status:
+        return arr, 200
+    else:
+        return 'failed', 400
 
 
 if __name__ == '__main__':

@@ -6,17 +6,23 @@
 
 <script>
 export default {
-  props: {
-    routeName: {
-      type: String,
-      default: 'main-page'
-    }
+  data() {
+    return {
+      testPages: ['audio-page', 'camera-page', 'keypad-page', 'monitor-page', 'radio-page']
+    };
   },
   methods: {
     goBack() {
-      this.$router.push({
-        name: this.routeName
-      });
+      const currRouteName = this.$route.name;
+      if (this.testPages.indexOf(currRouteName) !== -1) {
+        this.$router.push({
+          name: 'test-page'
+        });
+      } else {
+        this.$router.push({
+          name: 'main-page'
+        });
+      }      
     }
   }
 };
