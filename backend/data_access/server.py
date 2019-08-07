@@ -2,7 +2,8 @@ from data_access import dbmgr
 
 
 def get_server_info():
-    with dbmgr.get_connection() as conn:
+    conn = dbmgr.get_connection()
+    try:
         cursor = conn.cursor()
         cursor.execute('select address, port from robot_conf.server limit 1')
         result = cursor.fetchmany(1)
@@ -13,19 +14,23 @@ def get_server_info():
             }
             return server_info
         return {}
+    finally:
+        conn.close()
 
 
 def update_server_info(s_info):
     if not('address' in s_info and 'port' in s_info):
         return False, 'address or port is missing'
     # first delete record, then add it
-    with dbmgr.get_connection() as conn:
-        try:
-            cursor = conn.cursor()
-            cursor.execute('delete from robot_conf.server')
-            add_sql = 'insert into robot_conf.server(address, port) values (%s, %s)'
-            cursor.execute(add_sql, (s_info['address'], s_info['port']))
-            conn.commit()
-            return True, 'updated'
-        except IOError:
-            return False, 'update failed'
+    conn = dbmgr.get_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute('delete from robot_conf.server')
+        add_sql = 'insert into robot_conf.server(address, port) values (%s, %s)'
+        cursor.execute(add_sql, (s_info['address'], s_info['port']))
+        conn.commit()
+        return True, 'updated'
+    except IOError:
+        return False, 'update failed'
+    finally:
+        conn.close()
