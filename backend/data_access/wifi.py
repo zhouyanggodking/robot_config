@@ -47,6 +47,7 @@ def update_wifi_info(w_info):
         conn.commit()
         return True, 'updated'
     except IOError:
+        conn.rollback()
         return False, 'update failed'
     finally:
         conn.close()

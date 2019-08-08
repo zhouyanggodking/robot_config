@@ -34,6 +34,7 @@ def update_server_info(s_info):
         conn.commit()
         return True, 'updated'
     except IOError:
+        conn.rollback()
         return False, 'update failed'
     finally:
         conn.close()

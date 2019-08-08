@@ -40,6 +40,7 @@ def update_settings(s):
         conn.commit()
         return True, 'updated'
     except IOError:
+        conn.rollback()
         return False, 'update failed'
     finally:
         conn.close()

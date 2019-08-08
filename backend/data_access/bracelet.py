@@ -63,6 +63,7 @@ def update_bracelet_info(bracelet_id, mac):
         conn.commit()
         return True, 'updated'
     except IOError:
+        conn.rollback()
         return False, 'update failed'
     finally:
         conn.close()
@@ -76,6 +77,7 @@ def add_bracelet(mac):
         conn.commit()
         return True, 'added bracelet'
     except IOError:
+        conn.rollback()
         return False, 'added bracelet failed'
     finally:
         conn.close()
@@ -89,6 +91,7 @@ def delete_bracelet(bracelet_id):
         conn.commit()
         return True, 'deleted'
     except IOError:
+        conn.rollback()
         return False, 'deleted failed'
     finally:
         conn.close()
