@@ -3,17 +3,20 @@ from data_access import dbmgr
 
 def get_server_info():
     conn = dbmgr.get_connection()
+
     try:
+        server_info = {}
         cursor = conn.cursor()
         cursor.execute('select address, port from robot_conf.server limit 1')
-        result = cursor.fetchmany(1)
+        result = cursor.fetchall()
         if len(result) > 0:
             server_info = {
                 'address': result[0][0],
                 'port': result[0][1]
             }
-            return server_info
-        return {}
+        return True, server_info
+    except IOError:
+        return False, 'database operation error'
     finally:
         conn.close()
 

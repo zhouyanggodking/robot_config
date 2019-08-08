@@ -4,7 +4,7 @@
     <div class="row settings">
       <div class="row setting">
         <span class="camera">摄像头分辨率: </span>
-        <el-select v-model="cameraValue" placeholder="请选择">
+        <el-select v-model="cameraResolution" placeholder="请选择">
           <el-option
             v-for="item in cameraOptions"
             :key="item"
@@ -15,9 +15,9 @@
       </div>  
       <div class="row setting">
         <span class="radio">音频采样率: </span>
-        <el-select v-model="radioValue" placeholder="请选择">
+        <el-select v-model="audioFrequency" placeholder="请选择">
           <el-option
-            v-for="(item, index) in radioOptions"
+            v-for="(item, index) in audioOptions"
             :key="index"
             :label="item.label"
             :value="item.value">
@@ -41,11 +41,11 @@ import settingsQuery from '@/rest/settingsQuery';
 export default {
   data() {
     return {
-      cameraValue: 'VGA',
+      cameraResolution: 'VGA',
       cameraOptions: ['QVGA', 'VGA', 'HD'],
       gpsCoord: '',
-      radioValue: 8000,
-      radioOptions: [
+      audioFrequency: 8000,
+      audioOptions: [
         {
           value: 8000,
           label: '8,000HZ'
@@ -74,7 +74,7 @@ export default {
     async onSaveBtnClick() {
       try {
         this.isUpdating = true;
-        await settingsQuery.updateSettings(this.cameraValue, this.radioValue, this.gpsCoord);
+        await settingsQuery.updateSettings(this.cameraResolution, this.audioFrequency, this.gpsCoord);
         this.isUpdating = false;
         this.$message({
           message: '更新其它设置成功',
@@ -92,9 +92,9 @@ export default {
   async created() {
     try {
       const settings = await settingsQuery.getSettings();
-      this.cameraValue = settings.camera;
-      this.gpsCoord = settings.gps;
-      this.radioValue = settings.radio;
+      this.cameraResolution = settings.cameraResolution;
+      this.gpsCoord = settings.gpsCoord;
+      this.audioFrequency = settings.audioFrequency;
     } catch {
       this.$message({
         message: '获取其它设置失败',

@@ -37,71 +37,88 @@ def login():
 
 @app.route('/api/device')
 def get_device_info():
-    device_info = device.get_device_info()
-    return jsonify(device_info)
+    status, result = device.get_device_info()
+    if status:
+        return jsonify(result), 200
+    else:
+        return result, 400
 
 
 @app.route('/api/server')
 def get_server_info():
-    server_info = server.get_server_info()
-    return jsonify(server_info)
+    status, result = server.get_server_info()
+    if status:
+        return jsonify(result)
+    else:
+        return result, 400
 
 
 @app.route('/api/server', methods=['post'])
 def update_server_info():
     server_info = request.json
-    print(server_info)
-    success, msg = server.update_server_info(server_info)
-    if success:
-        return msg, 200
+    status, result = server.update_server_info(server_info)
+    if status:
+        return result, 200
     else:
-        return msg, 400
+        return result, 400
 
 
 @app.route('/api/wifi')
 def get_wifi_info():
-    wifi_info = wifi.get_wifi_info()
-    return jsonify(wifi_info)
+    status, result = wifi.get_wifi_info()
+    if status:
+        return jsonify(result), 200
+    else:
+        return result, 400
 
 
 @app.route('/api/wifi_list')
 def get_available_wifi_list():
-    wifi_list = wifi.get_available_wifi_list()
-    return jsonify(wifi_list)
+    status, result = wifi.get_available_wifi_list()
+    if status:
+        return jsonify(result), 200
+    else:
+        return result, 400
 
 
 @app.route('/api/wifi', methods=['post'])
 def update_wifi_info():
     wifi_info = request.json
-    success, msg = wifi.update_wifi_info((wifi_info))
-    if success:
-        return msg, 200
+    status, result = wifi.update_wifi_info(wifi_info)
+    if status:
+        return result, 200
     else:
-        return msg, 400
+        return result, 400
 
 
 @app.route('/api/bracelet_list')
 def get_configured_bracelet_list():
-    bracelet_list = bracelet.get_configured_bracelet_list()
-    return jsonify(bracelet_list)
+    status, bracelet_list = bracelet.get_configured_bracelet_list()
+    if status:
+        return jsonify(bracelet_list)
+    else:
+        return
 
 
-@app.route('/api/bracelet/<int:bracelet_id>')
+@app.route('/api/bracelet/<bracelet_id>')
 def get_bracelet_info(bracelet_id):
-    bracelet_info = bracelet.get_bracelet_info(bracelet_id)
-    return jsonify(bracelet_info)
+    status, result = bracelet.get_bracelet_info(bracelet_id)
+    if status:
+        return jsonify(result), 200
+    else:
+        return result, 400
 
 
-@app.route('/api/bracelet/<int:bracelet_id>', methods=['put'])
+@app.route('/api/bracelet/<bracelet_id>', methods=['put'])
 def update_bracelet_info(bracelet_id):
     bracelet_info = request.json
     if not('mac' in bracelet_info):
         return 'mac field is missing', 400
-    status, msg = bracelet.update_bracelet_info(bracelet_id, bracelet_info['mac'])
+    status, result = bracelet.update_bracelet_info(bracelet_id, bracelet_info['mac'])
     if status:
-        return 'updated', 200
+        return result, 200
     else:
-        return msg, 404  # TODO: more error message
+        return result, 400
 
 
 @app.route('/api/bracelet', methods=['post'])
@@ -109,124 +126,130 @@ def add_bracelet():
     bracelet_info = request.json
     if not ('mac' in bracelet_info):
         return 'mac field is missing', 400
-    status, msg = bracelet.add_bracelet(bracelet_info['mac'])
+    status, result = bracelet.add_bracelet(bracelet_info['mac'])
     if status:
-        return msg, 200
+        return result, 200
     else:
-        return 'add bracelet failed', 400
+        return result, 400
 
 
-@app.route('/api/bracelet/<int:bracelet_id>', methods=['delete'])
+@app.route('/api/bracelet/<bracelet_id>', methods=['delete'])
 def delete_bracelet(bracelet_id):
-    status, msg = bracelet.delete_bracelet(bracelet_id)
+    status, result = bracelet.delete_bracelet(bracelet_id)
     if status:
-        return msg, 200
+        return result, 200
     else:
-        return msg, 404
+        return result, 404
 
 
 @app.route('/api/scan_bracelet_list')
 def get_scanned_bracelet_list():
-    bracelet_list = bracelet.get_scanned_bracelet_list()
-    return jsonify(bracelet_list)
+    status, result = bracelet.get_scanned_bracelet_list()
+    if status:
+        return jsonify(result), 200
+    else:
+        return result, 400
 
 
 @app.route('/api/settings')
 def get_settings():
-    s = settings.get_settings()
-    return jsonify(s)
+    status, result = settings.get_settings()
+    if status:
+        return jsonify(result), 200
+    else:
+        return result, 400
 
 
 @app.route('/api/settings', methods=['put'])
 def update_settings():
     s = request.json
-    status, msg = settings.update_settings(s)
+    status, result = settings.update_settings(s)
     if status:
-        return msg, 200
+        return result, 200
     else:
-        return msg, 400
+        return result, 400
 
 
 # test functionalities
 @app.route('/api/start_test_radio', methods=['post'])
 def start_test_radio():
-    status, msg = test_func.start_test_radio()
+    status, result = test_func.start_test_radio()
     if status:
-        return msg, 200
+        return result, 200
     else:
-        return msg, 400
+        return result, 400
 
 
 @app.route('/api/stop_test_radio', methods=['post'])
 def stop_test_radio():
-    status, msg = test_func.stop_test_radio()
+    status, result = test_func.stop_test_radio()
     if status:
-        return msg, 200
+        return result, 200
     else:
-        return msg, 400
+        return result, 400
 
 
 @app.route('/api/start_recording_audio', methods=['post'])
 def start_recording_audio():
-    status, msg = test_func.start_recording_audio()
+    status, result = test_func.start_recording_audio()
     if status:
-        return msg, 200
+        return result, 200
     else:
-        return msg, 400
+        return result, 400
 
 
 @app.route('/api/stop_recording_audio', methods=['post'])
 def stop_recording_audio():
-    status, msg = test_func.stop_recording_audio()
+    status, result = test_func.stop_recording_audio()
     if status:
-        return msg, 200
+        return result, 200
     else:
-        return msg, 400
+        return result, 400
 
 
 @app.route('/api/play_recorded_audio', methods=['post'])
 def play_recorded_audio():
-    status, msg = test_func.play_recorded_audio()
+    status, result = test_func.play_recorded_audio()
     if status:
-        return msg, 200
+        return result, 200
     else:
-        return msg, 400
+        return result, 400
 
 
 @app.route('/api/start_test_monitor', methods=['post'])
 def start_test_monitor():
-    status, msg = test_func.start_test_monitor()
+    status, result = test_func.start_test_monitor()
     if status:
-        return msg, 200
+        return result, 200
     else:
-        return msg, 400
+        return result, 400
 
 
 @app.route('/api/stop_test_monitor', methods=['post'])
 def stop_test_monitor():
-    status, msg = test_func.stop_test_monitor()
+    status, result = test_func.stop_test_monitor()
     if status:
-        return msg, 200
+        return result, 200
     else:
-        return msg, 400
+        return result, 400
 
 
 @app.route('/api/capture_camera', methods=['post'])
 def capture_camera():
-    status, image_data = test_func.capture_camera()
+    status, result = test_func.capture_camera()
     if status:
-        return image_data, 200
+        return result, 200
     else:
-        return 'failed', 400
+        return result, 400
 
 
 @app.route('/api/keypad')
 def get_keypad_strings():
-    status, arr = test_func.get_keypad_strings()
+    status, result = test_func.get_keypad_strings()
     if status:
-        return jsonify(arr), 200
+        return jsonify(result), 200
     else:
-        return 'failed', 400
+        return result, 400
 
 
 if __name__ == '__main__':

@@ -5,11 +5,11 @@ export default class SettingsQuery {
     return axios.get('/api/settings').then(res => res.data);
   }
 
-  static updateSettings(camera, radio, gps) {
+  static updateSettings(cameraResolution, audioFrequency, gpsCoord) {
     return axios.put('api/settings', {
-      camera, 
-      radio, 
-      gps
+      cameraResolution, 
+      audioFrequency, 
+      gpsCoord
     });
   }
 }

@@ -11,6 +11,7 @@ create table if not exists wifi(
 );
 
 create table if not exists bracelet(
+    id int auto_increment primary key,
 	mac varchar(255) not null
 );
 

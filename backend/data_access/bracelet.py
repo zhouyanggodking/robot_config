@@ -1,13 +1,4 @@
-bracelet_list = [
-    {
-        'id': 1,
-        'mac': '5CEA1D8CAAE4'
-    },
-    {
-        'id': 2,
-        'mac': 'FFFF1D8CAAE4'
-    }
-]
+from data_access import dbmgr
 
 scanned_bracelet_list = [
     {
@@ -23,40 +14,85 @@ scanned_bracelet_list = [
 
 
 def get_configured_bracelet_list():
-    return bracelet_list
+    conn = dbmgr.get_connection()
+
+    try:
+        bracelet_list = []
+        cursor = conn.cursor()
+        cursor.execute('select id, mac from robot_conf.bracelet limit 2')
+        result = cursor.fetchall()
+
+        for record in result:
+            bracelet = {
+                'id': record[0],
+                'mac': record[1]
+            }
+            bracelet_list.append(bracelet)
+        return True, bracelet_list
+    except IOError:
+        return False, 'database operation error'
+    finally:
+        conn.close()
 
 
 def get_bracelet_info(bracelet_id):
-    for bracelet in bracelet_list:
-        if bracelet.id == bracelet_id:
-            return bracelet
-    return None
+    conn = dbmgr.get_connection()
+    try:
+        bracelet = {}
+        cursor = conn.cursor()
+        cursor.execute('select id, mac from robot_conf.bracelet where id = %s', bracelet_id)
+        result = cursor.fetchall()
+
+        if len(result) > 0:
+            bracelet = {
+                'id': result[0][0],
+                'mac': result[0][1]
+            }
+        return True, bracelet
+    except IOError:
+        return False, 'database operation error'
+    finally:
+        conn.close()
 
 
 def update_bracelet_info(bracelet_id, mac):
-    for bracelet in bracelet_list:
-        if bracelet['id'] == bracelet_id:
-            bracelet['mac'] = mac
-            return True, 'OK'
-    return False, 'Not Found'
+    conn = dbmgr.get_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute('update robot_conf.bracelet set mac = (%s) where id = (%s)', (mac, bracelet_id))
+        conn.commit()
+        return True, 'updated'
+    except IOError:
+        return False, 'update failed'
+    finally:
+        conn.close()
 
 
 def add_bracelet(mac):
-    length = len(bracelet_list)
-    bracelet_list.append({
-        'id': length,
-        'mac': mac
-    })
-    return True, 'OK'
+    conn = dbmgr.get_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute('insert into robot_conf.bracelet(mac) values (%s)', (mac,))
+        conn.commit()
+        return True, 'added bracelet'
+    except IOError:
+        return False, 'added bracelet failed'
+    finally:
+        conn.close()
 
 
 def delete_bracelet(bracelet_id):
-    for bracelet in bracelet_list:
-        if bracelet['id'] == bracelet_id:
-            bracelet_list.remove(bracelet)
-            return True, 'OK'
-    return False, 'Not Found'
+    conn = dbmgr.get_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute('delete from robot_conf.bracelet where id = ' + bracelet_id)
+        conn.commit()
+        return True, 'deleted'
+    except IOError:
+        return False, 'deleted failed'
+    finally:
+        conn.close()
 
 
 def get_scanned_bracelet_list():
-    return scanned_bracelet_list
+    return True, scanned_bracelet_list
