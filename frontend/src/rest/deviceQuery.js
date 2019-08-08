@@ -4,4 +4,8 @@ export default class DeviceQuery {
   static getDeviceInfo() {
     return axios.get('/api/device').then(res => res.data);
   }
+
+  static restartServer() {
+    return axios.post('/api/restart').then(res => res.data);
+  }
 }

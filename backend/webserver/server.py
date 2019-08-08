@@ -44,6 +44,15 @@ def get_device_info():
         return result, 400
 
 
+@app.route('/api/restart', methods=['post'])
+def restart_server():
+    status, result = device.restart_server()
+    if status:
+        return result, 200
+    else:
+        return result, 400
+
+
 @app.route('/api/server')
 def get_server_info():
     status, result = server.get_server_info()

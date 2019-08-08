@@ -4,7 +4,7 @@
     <main class="main">
       <div class="row device-info">
         <span class="sn">设备序列号： {{seriesNumber}}</span>
-        <el-button type="danger" class="restart" icon="el-icon-refresh-left">系统重启</el-button>
+        <el-button type="danger" class="restart" icon="el-icon-refresh-left" @click="onRestartBtnClick" :loading="isUpdatinig">系统重启</el-button>
       </div>
       <div class="row sections">
         <div class="section" v-for="(section, index) in sections" :key="index">
@@ -28,6 +28,7 @@ import deviceQuery from '@/rest/deviceQuery';
 export default {
   data() {
     return {
+      isUpdatinig: false,
       seriesNumber: '',
       sections: [
         {
@@ -62,6 +63,25 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    async onRestartBtnClick() {
+      try {
+        this.isUpdatinig = true;
+        await deviceQuery.restartServer();
+        this.isUpdatinig = false;
+        this.$message({
+          message: '重启成功',
+          type: 'success'
+        });
+      } catch {
+        this.isUpdatinig = false;
+        this.$message({
+          message: '重启失败',
+          type: 'error'
+        });
+      }
+    }
   },
   async created() {
     try {
