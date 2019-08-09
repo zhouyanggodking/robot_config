@@ -1,7 +1,7 @@
 <template>
   <div class="row nav">
     <router-link :to="{name: 'main-page'}" class="link row">
-      <img src="../assets/icons/logo.svg" alt="logo" width="64" height="64">
+      <img src="../assets/icons/logo_t.png" alt="logo" width="120" height="64">
     </router-link>
     <user-account></user-account>
   </div>
