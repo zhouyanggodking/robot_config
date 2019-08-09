@@ -41,6 +41,12 @@ export default {
         });
       }
     }
+  },
+  created() {
+    testQuery.enterTestEnv('radio');
+  },
+  beforeDestroy() {
+    testQuery.exitTestEnv('radio');
   }
 };
 </script>

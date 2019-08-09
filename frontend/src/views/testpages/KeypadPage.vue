@@ -22,8 +22,12 @@ export default {
       this.keyStrings = await testQuery.getKeypadPressedKeys();
     }, 300);
   },
+  created() {
+    testQuery.enterTestEnv('keypad');
+  },
   beforeDestroy() {
     clearInterval(this.handle);
+    testQuery.exitTestEnv('keypad');
   }
 };
 </script>

@@ -24,7 +24,7 @@ axios.interceptors.request.use(config => {
   if (config.url.indexOf('/api/login') === -1) {
     const authToken = authService.getAuthToken();
     if (authToken) {
-      config.headers.Authorization = authToken;
+      config.headers.Authorization = `Bearer ${authToken}`;
     }
   }
   return config;

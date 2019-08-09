@@ -1,6 +1,14 @@
 import axios from 'axios';
 
-export default class TestQuery {
+export default class TestQuery {  
+  static enterTestEnv(type) {
+    return axios.post(`/api/enter_${type}_test_env`).then(res => res.data);
+  }
+
+  static exitTestEnv(type) {
+    return axios.post(`/api/exit_${type}_test_env`).then(res => res.data);
+  }
+
   // radio
   static startTestRadio() {
     return axios.post('/api/start_test_radio').then(res => res.data);

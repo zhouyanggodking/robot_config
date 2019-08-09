@@ -9,7 +9,7 @@
         <el-input v-model="loginModel.username" placeholder="请输入用户名"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="loginModel.password" placeholder="请输入密码" @keyup.enter.native="login"></el-input>
+        <el-input v-model="loginModel.password" type="password" placeholder="请输入密码" @keyup.enter.native="login"></el-input>
       </el-form-item>
       <el-button type="primary" class="btn login" @click="login">登陆</el-button>
     </el-form>

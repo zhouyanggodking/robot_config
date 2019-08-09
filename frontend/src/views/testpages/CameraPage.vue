@@ -40,6 +40,12 @@ export default {
         });
       }
     }
+  },
+  created() {
+    testQuery.enterTestEnv('camera');
+  },
+  beforeDestroy() {
+    testQuery.exitTestEnv('camera');
   }
 };
 </script>

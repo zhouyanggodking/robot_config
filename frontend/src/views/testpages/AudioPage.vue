@@ -56,6 +56,12 @@ export default {
         });
       }
     }
+  },
+  created() {
+    testQuery.enterTestEnv('audio');
+  },
+  beforeDestroy() {
+    testQuery.exitTestEnv('audio');
   }
 };
 </script>

@@ -41,6 +41,12 @@ export default {
         });
       }
     }
+  },
+  created() {
+    testQuery.enterTestEnv('monitor');
+  },
+  beforeDestroy() {
+    testQuery.exitTestEnv('monitor');
   }
 };
 </script>
