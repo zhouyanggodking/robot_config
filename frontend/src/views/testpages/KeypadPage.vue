@@ -21,8 +21,6 @@ export default {
     this.handle = setInterval(async () => {
       this.keyStrings = await testQuery.getKeypadPressedKeys();
     }, 300);
-  },
-  created() {
     testQuery.enterTestEnv('keypad');
   },
   beforeDestroy() {
