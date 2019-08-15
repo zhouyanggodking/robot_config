@@ -123,7 +123,7 @@ def get_configured_bracelet_list():
         return
 
 
-@app.route('/api/bracelet/<bracelet_id>')
+@app.route('/api/bracelet/<int:bracelet_id>')
 @jwt_required
 def get_bracelet_info(bracelet_id):
     status, result = bracelet.get_bracelet_info(bracelet_id)
@@ -133,7 +133,7 @@ def get_bracelet_info(bracelet_id):
         return result, 400
 
 
-@app.route('/api/bracelet/<bracelet_id>', methods=['put'])
+@app.route('/api/bracelet/<int:bracelet_id>', methods=['put'])
 @jwt_required
 def update_bracelet_info(bracelet_id):
     bracelet_info = request.json
@@ -159,7 +159,7 @@ def add_bracelet():
         return result, 400
 
 
-@app.route('/api/bracelet/<bracelet_id>', methods=['delete'])
+@app.route('/api/bracelet/<int:bracelet_id>', methods=['delete'])
 @jwt_required
 def delete_bracelet(bracelet_id):
     status, result = bracelet.delete_bracelet(bracelet_id)
