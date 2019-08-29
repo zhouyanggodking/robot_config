@@ -7,3 +7,7 @@ def get_device_info():
 
 def restart_server():
     return True, 'restarted'
+
+
+def shutdown_server():
+    return True, 'shut down successfully'
