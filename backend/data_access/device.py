@@ -11,3 +11,7 @@ def restart_server():
 
 def shutdown_server():
     return True, 'shut down successfully'
+
+
+def mimic_debug():
+    return True, 'mimic debug successfully'
