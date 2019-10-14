@@ -7,6 +7,7 @@
         <el-button type="danger" class="restart" icon="el-icon-refresh-left" @click="onRestartBtnClick" :loading="isRestarting">系统重启</el-button>
         <el-button type="danger" class="shutdown" @click="onShutdownBtnClick" :loading="isShutingDown">关闭系统</el-button>
         <el-button type="primary" class="debug" @click="onMimicDebugBtnClick" :loading="isDebuging">模拟调试</el-button>
+        <el-button type="warning" class="updates" @click="onUpdatesBtnClick" :loading="isCheckingForUpdates">检查程序更新</el-button>
       </div>
       <div class="row sections">
         <div class="section" v-for="(section, index) in sections" :key="index">
@@ -20,6 +21,9 @@
         </div>
       </div>
     </main>
+    <!-- <el-dialog :title="dialog.title" :visible.sync="dialog.show">
+      <p>程序当前版本: {{}}</p>
+    </el-dialog> -->
   </div>
 </template>
 
@@ -33,6 +37,11 @@ export default {
       isRestarting: false,
       isShutingDown: false,
       isDebuging: false,
+      isCheckingForUpdates: false,
+      // dialog: {
+      //   title: '检查程序更新',
+      //   show: false
+      // },
       seriesNumber: '',
       sections: [
         {
@@ -119,6 +128,47 @@ export default {
           type: 'error'
         });
       }
+    },
+    async onUpdatesBtnClick() {
+      try {
+        this.isCheckingForUpdates = true;
+        const data = await deviceQuery.getVersion();        
+        this.isCheckingForUpdates = false;
+        if (data.currVersion !== data.latestVersion) {
+          // this.dialog.show = true;
+          this.$confirm(`服务器当前版本：${data.currVersion}，最新版本：${data.latestVersion}`, '程序版本更新', {
+            confirmButtonText: '更新',
+            cancelButtonText: '取消'
+          }).then(async () => {            
+            try {
+              this.$message({
+                message: '正在更新程序版本',
+                type: 'success'
+              });
+              await deviceQuery.updateVersion();
+              this.$message({
+                message: '更新程序版本成功',
+                type: 'success'
+              });
+            } catch {
+              this.$message({
+                message: '更新程序版本失败',
+                type: 'error'
+              });
+            }            
+          });
+        } else {
+          this.$alert(`服务器版本已是最新，版本号：${data.currVersion}`, '程序版本更新', {
+            confirmButtonText: '确定'
+          });
+        }
+      } catch {
+        this.isCheckingForUpdates = false;
+        this.$message({
+          message: '检查更新失败',
+          type: 'error'
+        });
+      }
     }
   },
   async created() {
@@ -163,7 +213,7 @@ export default {
         margin-right:24px;
         margin-bottom: 16px;
       }
-      .restart, .shutdown, .debug {
+      .restart, .shutdown, .debug, .updates {
         margin-bottom: 16px;
       }
     }

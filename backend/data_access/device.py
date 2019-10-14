@@ -15,3 +15,14 @@ def shutdown_server():
 
 def mimic_debug():
     return True, 'mimic debug successfully'
+
+
+def get_version():
+    return True, {
+        'currVersion': '1.0.0',
+        'latestVersion': '1.0.0'
+    }
+
+
+def update_version():
+    return True, 'successfully updated to latest version'

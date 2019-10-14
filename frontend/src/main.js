@@ -18,6 +18,7 @@ Vue.use(EvaIcons);
 Vue.config.productionTip = false;
 Vue.prototype.$message = ElementUI.Message;
 Vue.prototype.$confirm = ElementUI.MessageBox.confirm;
+Vue.prototype.$alert = ElementUI.MessageBox.alert;
 
 // use interceptor to add auth token to every request exception login
 axios.interceptors.request.use(config => {

@@ -81,6 +81,26 @@ def mimic_debug():
         return result, 400
 
 
+@app.route('/api/version')
+@jwt_required
+def get_version():
+    status, result = device.get_version()
+    if status:
+        return result, 200
+    else:
+        return result, 400
+
+
+@app.route('/api/update_version', methods=['post'])
+@jwt_required
+def update_version():
+    status, result = device.update_version()
+    if status:
+        return result, 200
+    else:
+        return result, 400
+
+
 @app.route('/api/server')
 @jwt_required
 def get_server_info():
