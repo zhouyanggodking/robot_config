@@ -20,7 +20,7 @@ def mimic_debug():
 def get_version():
     return True, {
         'currVersion': '1.0.0',
-        'latestVersion': '1.0.0'
+        'latestVersion': '1.0.1'
     }
 
 
